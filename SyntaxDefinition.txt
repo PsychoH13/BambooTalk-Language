@@ -1,0 +1,50 @@
+<BambooTalk Program> ::= <Program Element>+
+<Program Element>    ::= <Namespace definition> | <Protocol definition> | <Type definition> | <Global definition>
+
+<Namespace definition> ::= 'namespace' <Namespace name> '{' <BambooTalk Program> '}'
+<Namespace name>       ::= <identifier>
+
+<Protocol definition>   ::= 'protocol' <Protocol name> '{' <Protocol methods> '}'
+<Protocol methods>      ::= <Protocol method group>+
+<Protocol method group> ::= ['required'|'optional'] <Protocol method list>
+<Protocol method list>  ::= (<Class method declaration>|<Instance method declaration>)+
+
+<Class method declaration>    ::= <Class method prototype> '.'
+<Instance method declaration> ::= <Instance method prototype> '.'
+<Class method prototype>      ::= '+' <Method prototype>
+<Instance method prototype>   ::= '-' <Method prototype>
+<Method prototype>            ::= ['(' <Return type> ')'] <Method prototype body>
+<Method prototype body>       ::= <Unary message prototype> | <Binary message prototype> | <Keyword message prototype>
+<Unary message prototype>     ::= <Unary selector>
+<Unary selector>              ::= <identifier>
+<Binary message prototype>    ::= <Binary selector> ['(' <Argument type> ')'] <Argument name>
+<Binary selector>             ::= <Binary character>+
+<Argument name>               ::= <identifier>
+<Keyword message prototype>   ::= <Keyword message part>+
+<Keyword message part>        ::= <Keyword name> ['(' <Argument type> ')'] <Argument name>
+<Keyword name>                ::= <identifier> ':'
+
+<Type definition> ::= <Class definition> | <Enumeration definition> | <Composed type definition>
+
+<Class definition>       ::= 'class' <Class name> [':' <Superclass name>] ['<' <Protocol list> '>'] '{' <Class components> '}'
+<Superclass name>        ::= <Class name>
+<Class name>             ::= <identifier>
+<Protocol list>          ::= <Protocol name> [',' <Protocol name>]*
+<Protocol name>          ::= <identifier>
+<Class components>       ::= <Class component>*
+<Class component>        ::= <Variable component> | <Method component> | <Protocol definition> | <Type definition>
+<Variable component>     ::= <Class variable> | <Instance variable>
+<Method component>       ::= <Class method> | <Instance method> | <Constructor method>
+<Constructor method>     ::= <Designated constructor> | <Secondary constructor>
+<Class method>           ::= '+' <Method definition>
+<Instance method>        ::= '-' <Method definition>
+<Designated constructor> ::= '@' <Method definition>
+<Secondary constructor>  ::= '*' <Method definition>
+
+<Method definition> ::= <Method prototype> '{' <Statements> '}'
+
+<Statements> ::= <Statement>*
+
+<Enumeration definition> ::= 'enum' <identifier> '{' <Key value list> '}'
+<Key value list>         ::= <Key value pair> [, <Key value pair>]*
+<Key value pair>         ::= <identifier> [':=' <literal>]

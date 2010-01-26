@@ -1,0 +1,138 @@
+/*
+ Copyright (c) 2010, Remy Demarest
+ All rights reserved.
+ 
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+     * Redistributions of source code must retain the above copyright
+       notice, this list of conditions and the following disclaimer.
+     * Redistributions in binary form must reproduce the above copyright
+       notice, this list of conditions and the following disclaimer in the
+       documentation and/or other materials provided with the distribution.
+     * Neither the name of the OpenEmu Team nor the
+       names of its contributors may be used to endorse or promote products
+       derived from this software without specific prior written permission.
+ 
+ THIS SOFTWARE IS PROVIDED BY Remy Demarest ''AS IS'' AND ANY
+ EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL OpenEmu Team BE LIABLE FOR ANY
+ DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+#ifndef TOK
+#define TOK(X)
+#endif
+#ifndef PUNCTUATOR
+#define PUNCTUATOR(X,Y) TOK(X)
+#endif
+#ifndef KEYWORD
+#define KEYWORD(X) TOK(kw_ ## X)
+#endif
+
+TOK(unknown)             // Not a token.
+TOK(eof)                 // End of file.
+
+TOK(comment)             // Comment ## and #: :#
+
+TOK(identifier)          // abcde123
+TOK(keyword)             // abcde123:
+TOK(binary_message)      // ~ ! @ % & * - + = | \  < > , ? / ^ `
+
+TOK(numeric_constant)    // 123
+TOK(char_constant)       // 'a'
+TOK(string_literal)      // "foo"
+
+// C99 6.4.6: Punctuators.
+PUNCTUATOR(l_square,   "[")
+PUNCTUATOR(r_square,   "]")
+PUNCTUATOR(l_paren,    "(")
+PUNCTUATOR(r_paren,    ")")
+PUNCTUATOR(l_brace,    "{")
+PUNCTUATOR(r_brace,    "}")
+PUNCTUATOR(l_angle,    "<")  // Binary message char, also represents protocol list
+PUNCTUATOR(r_angle,    ">")  // Binary message char, also represents protocol list
+PUNCTUATOR(period,     ".")
+PUNCTUATOR(dollar,     "$")  // Type definition ?
+PUNCTUATOR(colonequal, ":=")
+PUNCTUATOR(hash,       "#")
+PUNCTUATOR(colon,      ":")  // Comments or inheritance
+PUNCTUATOR(semi,       ";")
+PUNCTUATOR(comma,      ",")  // Binary message char, also used in protocol, variable, structure lists
+PUNCTUATOR(bar,        "|")  // Binary message char, also used in union types
+PUNCTUATOR(plus,       "+")  // Binary message char, also class methods
+PUNCTUATOR(minus,      "-")  // Binary message char, also instance methods
+PUNCTUATOR(at,         "@")  // Binary message char, also designated constructors, attribute lists
+PUNCTUATOR(star,       "*")  // Binary message char, also secondary constructors
+
+// Reserved words
+
+// Loops
+KEYWORD(for)       // Increment iteration:
+                   //     'for' '(' init '.' conidition '.' increment ')' '{' statements '}'
+KEYWORD(foreach)   // Collection iteration:
+                   //     'foreach' '(' variable_def 'in' collection ')'  '{' statements '}'
+                   // Indexed/keyed collection iteration:
+                   //     'foreach' '(' variable_def 'at' key_or_index_variable_def 'in' collection ')'  '{' statements '}'
+KEYWORD(do)        // 'do' '{' statements '}' 'while' '(' condition ')' '.'
+KEYWORD(while)     // 'while' '(' conditiion ')' '{' statements '}'
+
+KEYWORD(break)     // In loop context, stop loop execution, in switch context, gets out of the switch
+KEYWORD(continue)  // In loop context, goes to next iteration
+
+KEYWORD(switch)    // 'switch' '(' condition ')' '{' cases '}'
+KEYWORD(case)      // 'case' value ':' statements 'break' '.'
+KEYWORD(default)   // 'default' ':' statements 'break' '.'
+
+KEYWORD(if)        // 'if' '(' condition ')' statements
+KEYWORD(else)      // 'else' statements
+
+KEYWORD(return)    // Returns a value from a block
+
+KEYWORD(enum)      // Namespaced constant definitions
+KEYWORD(struct)    // Non-subtypable classes, optimizable
+KEYWORD(typedef)   // Type alias
+
+KEYWORD(void)      // No return type
+KEYWORD(id)        // Universal type
+
+KEYWORD(import)    // Indicates that a namespace is fully included in the current scope
+KEYWORD(namespace) // Starts the definition of a namespace
+KEYWORD(class)     // Starts the definition of a class
+
+// Protocol stuff
+KEYWORD(protocol)
+KEYWORD(optional)
+KEYWORD(required)
+
+// Synchronization
+KEYWORD(synchronized)
+
+// Contextual keywords
+KEYWORD(get)       // Indicates a property getter method implementation
+KEYWORD(set)       // Indicates a property setter method implementation
+
+// Visibility accessors
+KEYWORD(private)
+KEYWORD(protected)
+KEYWORD(package)
+KEYWORD(public)
+
+// Exception handling
+KEYWORD(throw)
+KEYWORD(try)
+KEYWORD(catch)
+KEYWORD(finally)
+
+KEYWORD(static)    // Static storage
+KEYWORD(const)     // Indicates a constant variable
+
+
+#undef TOK
+#undef PUNCTUATOR
+#undef KEYWORD
