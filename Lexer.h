@@ -34,6 +34,7 @@
 
 #include "llvm/Support/MemoryBuffer.h"
 #include "Token.h"
+#include "IdentifierTable.h"
 #include <string>
 #include <cassert>
 #include <iostream>
@@ -63,8 +64,10 @@ namespace BambooTalk
         void skipCommentLine   (Token &result, const char *curPtr);
         void skipCommentBlock  (Token &result, const char *curPtr);
         
+        IdentifierTable identifiers;
+        
     public:
-        Lexer(llvm::MemoryBuffer *inputFile)
+        Lexer(llvm::MemoryBuffer *inputFile) : identifiers()
         {
             initLexer(inputFile->getBufferStart(), inputFile->getBufferStart(), inputFile->getBufferEnd());
         }
@@ -75,6 +78,13 @@ namespace BambooTalk
             
             lexTokenInternal(result);
         }
+        
+        IdentifierInfo *getIdentifierInfo(const char *nameStart, const char *nameEnd)
+        {
+            return &identifiers.get(nameStart, nameEnd);
+        }
+        
+        IdentifierInfo *lookUpIdentifierInfo(Token &identifier, const char *bufPtr);
         
         void formTokenWithChars(Token &result, const char *tokEnd, tok::TokenKind kind)
         {

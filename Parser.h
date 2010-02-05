@@ -1,5 +1,5 @@
 /*
- * Token.h
+ * Parser.h
  * BambooTalk
  *
  * Created by Remy Demarest on 28/01/2010.
@@ -29,69 +29,37 @@
  *  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef BAMBOOTALK_TOKEN_H
-#define BAMBOOTALK_TOKEN_H
 
-#include <string>
+#ifndef BAMBOOTALK_PARSER_H
+#define BAMBOOTALK_PARSER_H
+
+#include "Lexer.h"
+#include "Token.h"
 
 namespace BambooTalk
 {
-    class IdentifierInfo;
-    
-    namespace tok
+    class Parser
     {
-        enum TokenKind
-        {
-#define TOK(X) X,
-#include "TokenKinds.def"
-            TOKEN_COUNT
-        };
-        const char *getTokenName(enum TokenKind kind);
-    }
-    
-    class Token
-    {
-        tok::TokenKind kind;
+    private:
+        Lexer &lexer;
         
-        std::string tokenChars;
+        /// Tok - The current token we are peeking ahead.  All parsing methods assume
+        /// that this is valid.
+        Token tok;
         
-        void *ptrData;
+        unsigned short parenCount, bracketCount, braceCount;
         
     public:
-        tok::TokenKind getKind() const { return kind; }
-        void setKind(tok::TokenKind k) { kind = k; }
-        
-        std::string getTokenChars() const { return tokenChars; }
-        void setTokenChars(std::string value) { tokenChars = value; }
-        
-        size_t getLength() const { return tokenChars.length(); }
-        
-        /// is/isNot - Predicates to check if this token is a specific kind, as in
-        /// "if (Tok.is(tok::l_brace)) {...}".
-        bool is(tok::TokenKind k) const { return kind == (unsigned) k; }
-        bool isNot(tok::TokenKind k) const { return kind != (unsigned) k; }
-        
-        /// isLiteral - Return true if this is a "literal", like a numeric
-        /// constant, string, etc.
-        bool isLiteral() const {
-            return is(tok::numeric_constant) || is(tok::char_constant) ||
-            is(tok::string_literal);
-        }
-        
-        void startToken(void)
+        Parser(Lexer &aLexer) : lexer(aLexer)
         {
-            kind = tok::unknown;
-            tokenChars = "";
-            ptrData = 0;
+            parenCount   = 0;
+            bracketCount = 0;
+            braceCount   = 0;
         }
         
-        IdentifierInfo *getIdentifierInfo() const
+        void consumeToken()
         {
-            if (isLiteral()) return 0;
-            return (IdentifierInfo*) ptrData;
-        }
-        void setIdentifierInfo(IdentifierInfo *II) {
-            ptrData = (void*) II;
+            
         }
     };
 }

@@ -181,6 +181,18 @@ void Lexer::lexNumericConstant(Token &result, const char *curPtr)
     formTokenWithChars(result, curPtr, tok::numeric_constant);
 }
 
+IdentifierInfo *Lexer::lookUpIdentifierInfo(Token &ident, const char *bufPtr)
+{
+    assert(ident.is(tok::identifier) && "Not an identifier!");
+    assert(ident.getIdentifierInfo() == 0 && "Identinfo already exists!");
+    
+    IdentifierInfo *identInfo = getIdentifierInfo(bufPtr, bufPtr + ident.getLength());
+    
+    ident.setIdentifierInfo(identInfo);
+    
+    return identInfo;
+}
+
 void Lexer::lexIdentifier(Token &result, const char *curPtr)
 {
     char prev;
@@ -196,7 +208,12 @@ void Lexer::lexIdentifier(Token &result, const char *curPtr)
     
     curPtr--;
     
+    const char *idStart = bufferPtr;
     formTokenWithChars(result, curPtr, k);
+    
+    IdentifierInfo *identInfo = lookUpIdentifierInfo(result, idStart);
+    
+    result.setKind(identInfo->getTokenID());
 }
 
 void Lexer::lexBinaryMessage(Token &result, const char *curPtr)

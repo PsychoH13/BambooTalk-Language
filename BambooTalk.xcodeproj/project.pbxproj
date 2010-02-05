@@ -11,6 +11,8 @@
 		8DD76F6A0486A84900D96B5E /* BambooTalk.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* BambooTalk.1 */; };
 		C60E3C8810E7787800582697 /* Lexer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C60E3C8710E7787800582697 /* Lexer.cpp */; };
 		C60E3E1310E7E5C100582697 /* Token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C60E3E1210E7E5C100582697 /* Token.cpp */; };
+		C6332CF1110E9B8300C45CED /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C6332CF0110E9B8300C45CED /* Parser.cpp */; };
+		C6EF417A111B519E00302E97 /* IdentifierTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C6EF4179111B519E00302E97 /* IdentifierTable.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,7 +39,11 @@
 		C60E3E1210E7E5C100582697 /* Token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Token.cpp; sourceTree = "<group>"; };
 		C60E3E8410E8093D00582697 /* SyntaxDefinition.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SyntaxDefinition.txt; sourceTree = "<group>"; };
 		C6332CEC110E96FD00C45CED /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+		C6332CEF110E9B8300C45CED /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
+		C6332CF0110E9B8300C45CED /* Parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parser.cpp; sourceTree = "<group>"; };
 		C6859E8B029090EE04C91782 /* BambooTalk.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = BambooTalk.1; sourceTree = "<group>"; };
+		C6EF4178111B519E00302E97 /* IdentifierTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentifierTable.h; sourceTree = "<group>"; };
+		C6EF4179111B519E00302E97 /* IdentifierTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IdentifierTable.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,10 @@
 				C60E3C8710E7787800582697 /* Lexer.cpp */,
 				C60E3C9710E7813100582697 /* Token.h */,
 				C60E3E1210E7E5C100582697 /* Token.cpp */,
+				C6332CEF110E9B8300C45CED /* Parser.h */,
+				C6332CF0110E9B8300C45CED /* Parser.cpp */,
+				C6EF4178111B519E00302E97 /* IdentifierTable.h */,
+				C6EF4179111B519E00302E97 /* IdentifierTable.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -139,6 +149,8 @@
 				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
 				C60E3C8810E7787800582697 /* Lexer.cpp in Sources */,
 				C60E3E1310E7E5C100582697 /* Token.cpp in Sources */,
+				C6332CF1110E9B8300C45CED /* Parser.cpp in Sources */,
+				C6EF417A111B519E00302E97 /* IdentifierTable.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
